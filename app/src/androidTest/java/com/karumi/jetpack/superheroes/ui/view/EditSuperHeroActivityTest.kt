@@ -2,6 +2,7 @@ package com.karumi.jetpack.superheroes.ui.view
 
 import android.os.Bundle
 import com.karumi.jetpack.superheroes.data.repository.SuperHeroRepository
+import com.karumi.jetpack.superheroes.data.singleValueLiveData
 import com.karumi.jetpack.superheroes.domain.model.SuperHero
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Test
@@ -11,7 +12,7 @@ import org.kodein.di.erased.instance
 import org.mockito.Mock
 
 class EditSuperHeroActivityTest :
-    AcceptanceTest<EditSuperHeroActivity>(EditSuperHeroActivity::class.java) {
+        AcceptanceTest<EditSuperHeroActivity>(EditSuperHeroActivity::class.java) {
 
     companion object {
         private const val ANY_ID = "#1"
@@ -31,13 +32,13 @@ class EditSuperHeroActivityTest :
 
     private fun givenThereIsASuperHero(): SuperHero {
         val superHero = SuperHero(
-            ANY_ID,
-            "TestSuper Hero",
-            null,
-            true,
-            ""
+                ANY_ID,
+                "TestSuper Hero",
+                null,
+                true,
+                ""
         )
-        whenever(repository.get(ANY_ID)).thenReturn(superHero)
+        whenever(repository.get(ANY_ID)).thenReturn(singleValueLiveData(superHero))
         return superHero
     }
 
