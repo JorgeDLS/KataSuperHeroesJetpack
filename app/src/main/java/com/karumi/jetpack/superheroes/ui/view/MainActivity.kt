@@ -3,6 +3,7 @@ package com.karumi.jetpack.superheroes.ui.view
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.karumi.jetpack.superheroes.R
 import com.karumi.jetpack.superheroes.common.bindViewModel
@@ -49,16 +50,14 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
         recycler_view.adapter = adapter
     }
 
-    private fun showSuperHeroes(superHeroes: List<SuperHero>) {
-        adapter.clear()
-        adapter.addAll(superHeroes)
-        adapter.notifyDataSetChanged()
+    private fun showSuperHeroes(superHeroes: PagedList<SuperHero>) {
+        adapter.submitList(superHeroes)
     }
 
     private fun openDetail(id: String) {
         SuperHeroDetailActivity.open(
-            activity = this,
-            superHeroId = id
+                activity = this,
+                superHeroId = id
         )
     }
 
